@@ -5,8 +5,10 @@ favicon = "/favicon.png"
 last_updated = "August 30, 2026"
 
 [author]
-name = "Shenxiang Zeng（曾申翔）"
-title = "Senior Undergraduate · PhD Student, Class of 2027"
+name = "Shenxiang Zeng"
+name_zh = "曾申翔"
+title = "Senior Undergraduate"
+degree = "PhD Student, Class of 2027"
 institution = "Tsinghua University"
 avatar = "/avatar.jpg"
 
