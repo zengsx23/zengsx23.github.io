@@ -1,0 +1,22 @@
+{
+  "name": "zengsx23-github-homepage",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/space-grotesk": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "astro": "^7.2.9"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2"
+  }
+}
