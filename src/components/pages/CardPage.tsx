@@ -57,7 +57,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                 </span>
                             )}
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>
+                                <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold leading-snug text-primary ${item.link ? "sm:pr-24" : ""}`}>
                                     {item.title}
                                 </h3>
                                 {item.date && (
@@ -69,9 +69,31 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                             {item.subtitle && (
                                 <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>{item.subtitle}</p>
                             )}
+                            {item.authors && item.authors.length > 0 && (
+                                <div className="mb-3">
+                                    <p className={`${embedded ? "text-sm" : "text-base"} leading-relaxed text-neutral-600 dark:text-neutral-400`}>
+                                        {item.authors.map((author, authorIndex) => (
+                                            <span key={author}>
+                                                <span className={author === item.highlighted_author ? "font-semibold text-accent" : ""}>
+                                                    {author}
+                                                </span>
+                                                {authorIndex < item.authors!.length - 1 ? ', ' : ''}
+                                            </span>
+                                        ))}
+                                    </p>
+                                    {item.author_note && (
+                                        <p className="mt-1 text-xs italic text-neutral-500">{item.author_note}</p>
+                                    )}
+                                </div>
+                            )}
                             {item.content && (
                                 <div className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-500 leading-relaxed`}>
-                                    <ReactMarkdown components={markdownComponents}>
+                                    <ReactMarkdown
+                                        components={{
+                                            ...markdownComponents,
+                                            p: ({ children }) => <p className="line-clamp-2">{children}</p>,
+                                        }}
+                                    >
                                         {item.content}
                                     </ReactMarkdown>
                                 </div>
