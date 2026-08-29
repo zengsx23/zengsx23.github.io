@@ -1,0 +1,9 @@
+type = "card"
+title = "Projects"
+
+[[items]]
+title = "PhysMind"
+subtitle = "From Video to Executable Worlds for Training-Free Physical Reasoning"
+content = "Reliable physical reasoning from video requires understanding how objects move, interact, and respond to interventions. Existing vision-language models often struggle to interpret these dynamics and reason reliably about future and counterfactual outcomes. We introduce PhysMind, a training-free agentic framework that constructs one reusable, question-agnostic executable world per video…"
+tags = ["Physical reasoning", "Training-free", "Executable worlds"]
+link = "https://physmind.github.io/"

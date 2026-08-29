@@ -1,10 +1,13 @@
 # zengsx23.github.io
 
-这是 [zengsx23.github.io](https://zengsx23.github.io) 的源代码，使用 Astro 构建并通过 GitHub Pages 部署。
+Source for [zengsx23.github.io](https://zengsx23.github.io), built with
+[PRISM](https://github.com/xyjoey/PRISM), Next.js, TypeScript, and Tailwind CSS.
+The site is exported as static files and deployed to GitHub Pages.
 
-## 本地开发
+## Local development
 
-项目运行环境由 Conda 管理，完整约定参见 [AGENTS.md](./AGENTS.md)。
+All development dependencies are managed through the project Conda environment
+and local npm packages. See [AGENTS.md](./AGENTS.md) for the complete conventions.
 
 ```bash
 conda env create -f environment.yml
@@ -12,10 +15,13 @@ conda run -n github-homepage npm ci
 conda run -n github-homepage npm run dev
 ```
 
-执行生产构建：
+## Verification and build
 
 ```bash
+conda run -n github-homepage npm run check
+conda run -n github-homepage npm run lint
 conda run -n github-homepage npm run build
 ```
 
-个人资料与链接统一维护在 `src/data/profile.ts` 中。
+The production site is written to `out/`. Personal information and page content
+are maintained in `content/`.

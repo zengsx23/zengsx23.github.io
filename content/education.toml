@@ -1,0 +1,12 @@
+type = "card"
+title = "Education"
+
+[[items]]
+title = "Tsinghua University"
+subtitle = "B.Eng. Candidate, Department of Civil Engineering"
+date = "Present"
+
+[[items]]
+title = "Tsinghua University"
+subtitle = "PhD Student, Class of 2027"
+date = "From 2027"

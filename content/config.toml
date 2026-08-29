@@ -1,0 +1,47 @@
+[site]
+title = "Shenxiang Zeng"
+description = "Personal website of Shenxiang Zeng, a senior undergraduate at Tsinghua University and a PhD student in the Class of 2027."
+favicon = "/avatar.jpg"
+last_updated = "August 30, 2026"
+
+[author]
+name = "Shenxiang Zeng（曾申翔）"
+title = "Senior Undergraduate · PhD Student, Class of 2027"
+institution = "Tsinghua University"
+avatar = "/avatar.jpg"
+
+[social]
+email = "zengsx23@mails.tsinghua.edu.cn"
+phone = "18459795279"
+github = "https://github.com/zengsx23"
+
+[features]
+enable_likes = false
+enable_one_page_mode = true
+
+[i18n]
+enabled = false
+locales = ["en"]
+default_locale = "en"
+mode = "fixed"
+fixed_locale = "en"
+persist = false
+switcher = false
+
+[[navigation]]
+title = "About"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "Projects"
+type = "page"
+target = "projects"
+href = "/projects"
+
+[[navigation]]
+title = "Education"
+type = "page"
+target = "education"
+href = "/education"
