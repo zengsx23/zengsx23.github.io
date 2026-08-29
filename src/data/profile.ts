@@ -36,10 +36,9 @@ export const profile = {
     nextTitle: '个人主页',
     nextDescription: '一个支持深浅主题的公开工作台，使用 Astro 构建并通过 GitHub Pages 持续发布。',
     contactLabel: '保持联系',
-    contactTitle: '下一次协作，可以从一个 Issue 开始。',
+    contactTitle: '下一次协作，可以从一封邮件开始。',
     contactBody: '如果你想讨论一个想法、项目或改进建议，可以通过邮件、电话或 GitHub 联系我。',
     contactAction: '发送邮件',
     footer: '设计与构建均保持开放。',
   },
 } as const;
-
