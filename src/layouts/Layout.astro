@@ -11,13 +11,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#edf1f3" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
@@ -27,13 +27,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:site_name" content="Shenxiang Zeng" />
     <meta name="twitter:card" content="summary" />
     <title>{title}</title>
-    <script is:inline>
-      (() => {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
-      })();
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
