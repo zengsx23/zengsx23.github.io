@@ -1,7 +1,7 @@
 [site]
 title = "Shenxiang Zeng"
 description = "Personal website of Shenxiang Zeng, a senior undergraduate at Tsinghua University and a PhD student in the Class of 2027."
-favicon = "/avatar.jpg"
+favicon = "/favicon.png"
 last_updated = "August 30, 2026"
 
 [author]
