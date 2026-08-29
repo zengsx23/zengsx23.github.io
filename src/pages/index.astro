@@ -3,23 +3,33 @@ import Layout from '../layouts/Layout.astro';
 import { profile } from '../data/profile';
 ---
 
-<Layout title="Shenxiang Zeng（曾申翔）" description="清华大学土木工程系本科生曾申翔的个人主页。">
+<Layout
+  title="Shenxiang Zeng（曾申翔）"
+  description="Personal website of Shenxiang Zeng, a senior undergraduate student at Tsinghua University."
+>
   <header class="site-header" id="top">
     <div class="header-inner">
       <a class="site-name" href="#top" translate="no">{profile.name}</a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="#about">关于我</a>
-        <a href="#news">动态</a>
-        <a href="#projects">项目</a>
-        <a href="#education">经历</a>
-        <a href="#contact">联系</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="page-shell" id="main">
-    <aside class="profile-column" aria-label="个人资料">
-      <div class="portrait-placeholder" role="img" aria-label="头像暂未上传"></div>
+    <aside class="profile-column" aria-label="Profile">
+      <img
+        class="portrait"
+        src="/avatar.jpg"
+        width="460"
+        height="460"
+        alt="Portrait of Shenxiang Zeng"
+        fetchpriority="high"
+      />
 
       <div class="profile-heading">
         <h1 translate="no">{profile.name}</h1>
@@ -28,23 +38,23 @@ import { profile } from '../data/profile';
 
       <div class="profile-role">
         {profile.roles.map((role) => <p>{role}</p>)}
-        <p class="institution">清华大学</p>
+        <p class="institution">Tsinghua University</p>
       </div>
 
-      <div class="profile-links" aria-label="联系方式与社交链接">
-        <a href={profile.githubUrl} aria-label="访问 GitHub" title="GitHub" translate="no">
+      <div class="profile-links" aria-label="Contact and social links">
+        <a href={profile.githubUrl} aria-label="Visit GitHub" title="GitHub" translate="no">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg>
         </a>
-        <a href={`mailto:${profile.email}`} aria-label="发送邮件" title="邮件">
+        <a href={`mailto:${profile.email}`} aria-label="Send an email" title="Email">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm9 7.1L20.2 7H3.8L12 12.1Zm0 2.35L3 8.85V17h18V8.85l-9 5.6Z"></path></svg>
         </a>
-        <a href={`tel:${profile.phone}`} aria-label={`拨打电话 ${profile.phone}`} title="电话">
+        <a href={`tel:${profile.phone}`} aria-label={`Call ${profile.phone}`} title="Phone">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7.2 2 3 5.35-2.22 2.23a16.1 16.1 0 0 0 6.44 6.44l2.23-2.22 5.35 3V21a1 1 0 0 1-1 1C10.5 22 2 13.5 2 3a1 1 0 0 1 1-1h4.2Z"></path></svg>
         </a>
       </div>
 
       <section class="contact-card" id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title">联系方式</h2>
+        <h2 id="contact-title">Contact</h2>
         <a href={`mailto:${profile.email}`}>{profile.email}</a>
         <a href={`tel:${profile.phone}`}>{profile.phone}</a>
         <a href={profile.githubUrl} translate="no">github.com/{profile.handle}</a>
@@ -53,12 +63,12 @@ import { profile } from '../data/profile';
 
     <div class="content-column">
       <section class="content-section about-section" id="about" aria-labelledby="about-title">
-        <h2 id="about-title">关于我</h2>
+        <h2 id="about-title">About</h2>
         <div class="prose">{profile.about.map((paragraph) => <p>{paragraph}</p>)}</div>
       </section>
 
       <section class="content-section" id="news" aria-labelledby="news-title">
-        <div class="section-heading"><h2 id="news-title">近期动态</h2></div>
+        <div class="section-heading"><h2 id="news-title">News</h2></div>
         <ol class="news-list">
           {profile.news.map((item) => <li><time>{item.date}</time><p>{item.content}</p></li>)}
         </ol>
@@ -66,18 +76,17 @@ import { profile } from '../data/profile';
 
       <section class="content-section" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
-          <h2 id="projects-title">项目与作品</h2>
-          <a href={profile.githubUrl} translate="no">查看 GitHub <span aria-hidden="true">↗</span></a>
+          <h2 id="projects-title">Projects</h2>
+          <a href={profile.githubUrl} translate="no">View GitHub <span aria-hidden="true">↗</span></a>
         </div>
         <div class="project-list">
           {profile.projects.map((project) => (
             <article class="project-card">
-              <div class="project-mark" aria-hidden="true">P</div>
               <div class="project-content">
                 <h3><a href={project.url} translate="no">{project.name}</a></h3>
                 <p>{project.description}</p>
-                <ul aria-label="项目标签">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
-                <a class="project-link" href={project.url}>访问项目网站 <span aria-hidden="true">↗</span></a>
+                <ul aria-label="Project tags">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
+                <a class="project-link" href={project.url}>Visit project website <span aria-hidden="true">↗</span></a>
               </div>
             </article>
           ))}
@@ -85,7 +94,7 @@ import { profile } from '../data/profile';
       </section>
 
       <section class="content-section" id="education" aria-labelledby="education-title">
-        <h2 id="education-title">教育经历</h2>
+        <h2 id="education-title">Education</h2>
         <div class="education-list">
           {profile.education.map((item) => (
             <article><div><h3>{item.institution}</h3><p>{item.program}</p></div><span>{item.period}</span></article>
@@ -97,7 +106,7 @@ import { profile } from '../data/profile';
 
   <footer class="site-footer">
     <p>© {new Date().getFullYear()} <span translate="no">{profile.name}</span></p>
-    <p>使用 <span translate="no">Astro</span> 构建，托管于 <span translate="no">GitHub Pages</span></p>
-    <a href="#top">返回顶部 ↑</a>
+    <p>Built with <span translate="no">Astro</span> and hosted on <span translate="no">GitHub Pages</span></p>
+    <a href="#top">Back to top ↑</a>
   </footer>
 </Layout>
