@@ -75,9 +75,9 @@ export default function Profile({ author, social }: ProfileProps) {
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55 }}
-      className="lg:sticky lg:top-28"
+      className="flex flex-col items-center text-center lg:sticky lg:top-28"
     >
-      <div className="mx-auto mb-8 h-64 w-64 overflow-hidden rounded-2xl shadow-sm ring-1 ring-neutral-200 dark:ring-neutral-800 lg:mx-0">
+      <div className="mb-8 h-64 w-64 overflow-hidden rounded-2xl shadow-sm ring-1 ring-neutral-200 dark:ring-neutral-800">
         <Image
           src={author.avatar}
           alt={`Portrait of ${author.name}${author.name_zh ? ` (${author.name_zh})` : ''}`}
@@ -88,7 +88,7 @@ export default function Profile({ author, social }: ProfileProps) {
         />
       </div>
 
-      <div className="text-center lg:text-left">
+      <div>
         <h1 className="text-3xl font-bold leading-none tracking-[-0.02em] text-primary font-serif">
           {author.name}
         </h1>
@@ -106,7 +106,7 @@ export default function Profile({ author, social }: ProfileProps) {
         </p>
       </div>
 
-      <div className="mt-7 flex justify-center gap-3 lg:justify-start" aria-label="Profile links">
+      <div className="mt-7 flex justify-center gap-3" aria-label="Profile links">
         {profileLinks.map((profileLink) => {
           const Icon = profileLink.icon;
           const isCopied = copied === profileLink.name;
