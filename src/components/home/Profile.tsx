@@ -13,9 +13,19 @@ type ProfileLinkIcon = ComponentType<SVGProps<SVGSVGElement>>;
 interface ProfileLink {
   name: string;
   value: string;
-  href: string;
+  href?: string;
   icon: ProfileLinkIcon;
   external?: boolean;
+  copiesOnClick?: boolean;
+}
+
+function WechatIcon({ className }: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.1 3.5C4.63 3.5 1 6.55 1 10.31c0 2.09 1.14 3.98 3.03 5.27l-.77 2.56 2.92-1.4c.93.25 1.91.38 2.92.38.3 0 .6-.01.89-.04a6.42 6.42 0 0 1-.5-2.46c0-3.66 3.38-6.64 7.53-6.64.18 0 .36.01.54.02C16.35 5.37 13.14 3.5 9.1 3.5Zm-2.76 5.1a1.03 1.03 0 1 1 0-2.06 1.03 1.03 0 0 1 0 2.06Zm5.52 0a1.03 1.03 0 1 1 0-2.06 1.03 1.03 0 0 1 0 2.06Z" />
+      <path d="M23 14.62c0-3.09-2.68-5.6-5.98-5.6-3.3 0-5.98 2.51-5.98 5.6s2.68 5.6 5.98 5.6c.78 0 1.53-.14 2.22-.4l2.27 1.08-.61-2.04c1.31-1.03 2.1-2.54 2.1-4.24Zm-7.96-1.03a.86.86 0 1 1 0-1.72.86.86 0 0 1 0 1.72Zm3.97 0a.86.86 0 1 1 0-1.72.86.86 0 0 1 0 1.72Z" />
+    </svg>
+  );
 }
 
 interface ProfileProps {
@@ -45,6 +55,12 @@ export default function Profile({ author, social }: ProfileProps) {
       value: social.phone,
       href: `tel:${social.phone}`,
       icon: PhoneIcon,
+    }] : []),
+    ...(social.wechat ? [{
+      name: 'WeChat',
+      value: social.wechat,
+      icon: WechatIcon,
+      copiesOnClick: true,
     }] : []),
   ];
 
@@ -94,18 +110,30 @@ export default function Profile({ author, social }: ProfileProps) {
         {profileLinks.map((profileLink) => {
           const Icon = profileLink.icon;
           const isCopied = copied === profileLink.name;
+          const triggerClassName = "flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-background text-neutral-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-neutral-700 dark:text-neutral-400";
 
           return (
             <div key={profileLink.name} className="group relative">
-              <a
-                href={profileLink.href}
-                target={profileLink.external ? '_blank' : undefined}
-                rel={profileLink.external ? 'noopener noreferrer' : undefined}
-                aria-label={`${profileLink.name}: ${profileLink.value}`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-background text-neutral-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-neutral-700 dark:text-neutral-400"
-              >
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </a>
+              {profileLink.copiesOnClick ? (
+                <button
+                  type="button"
+                  onClick={() => copyValue(profileLink)}
+                  aria-label={`Copy ${profileLink.name}: ${profileLink.value}`}
+                  className={triggerClassName}
+                >
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              ) : (
+                <a
+                  href={profileLink.href}
+                  target={profileLink.external ? '_blank' : undefined}
+                  rel={profileLink.external ? 'noopener noreferrer' : undefined}
+                  aria-label={`${profileLink.name}: ${profileLink.value}`}
+                  className={triggerClassName}
+                >
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </a>
+              )}
 
               <div className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-1 rounded-lg bg-neutral-900 px-3 py-2 text-left text-xs text-white opacity-0 shadow-xl transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
                 <p className="mb-1 font-semibold">{profileLink.name}</p>

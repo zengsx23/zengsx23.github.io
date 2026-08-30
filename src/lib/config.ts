@@ -21,6 +21,7 @@ export interface SiteConfig {
   social: {
     email?: string;
     phone?: string;
+    wechat?: string;
     location?: string;
     location_url?: string;
     location_details?: string[];
