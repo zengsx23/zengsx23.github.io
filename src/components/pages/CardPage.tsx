@@ -81,6 +81,11 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                             </span>
                                         ))}
                                     </p>
+                                    {item.venue && (
+                                        <p className={`${embedded ? "text-sm" : "text-base"} mt-1 font-medium italic text-neutral-700 dark:text-neutral-300`}>
+                                            {item.venue}
+                                        </p>
+                                    )}
                                     {item.author_note && (
                                         <p className="mt-1 text-xs italic text-neutral-500">{item.author_note}</p>
                                     )}

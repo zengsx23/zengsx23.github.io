@@ -14,6 +14,7 @@ export interface CardItem {
     subtitle?: string;
     authors?: string[];
     highlighted_author?: string;
+    venue?: string;
     author_note?: string;
     date?: string;
     content?: string;
