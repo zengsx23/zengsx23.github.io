@@ -115,6 +115,9 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         </>
                     );
                     const cardClassName = `group relative block bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 transition-all duration-200`;
+                    const passiveHoverClassName = config.hoverable
+                        ? 'hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg'
+                        : '';
                     const motionProps = {
                         initial: { opacity: 0, y: 20 },
                         animate: { opacity: 1, y: 0 },
@@ -138,7 +141,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                     }
 
                     return (
-                        <motion.div key={index} {...motionProps} className={cardClassName}>
+                        <motion.div key={index} {...motionProps} className={`${cardClassName} ${passiveHoverClassName}`}>
                             {cardContent}
                         </motion.div>
                     );

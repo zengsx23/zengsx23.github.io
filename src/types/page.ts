@@ -25,5 +25,6 @@ export interface CardItem {
 
 export interface CardPageConfig extends BasePageConfig {
     type: 'card';
+    hoverable?: boolean;
     items: CardItem[];
 }

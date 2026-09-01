@@ -1,5 +1,6 @@
 type = "card"
 title = "Major Awards"
+hoverable = true
 
 [[items]]
 title = "Lu Qian Scholarship and Teaching Excellence Fund"
