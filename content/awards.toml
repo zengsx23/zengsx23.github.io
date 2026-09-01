@@ -8,6 +8,10 @@ subtitle = "Tsinghua University"
 date = "2026"
 
 [[items]]
+title = "Tsinghua University “Sanhao Student”"
+date = "2026"
+
+[[items]]
 title = "Comprehensive Excellence Scholarship"
 subtitle = "Tsinghua University"
 date = "2025"
@@ -19,8 +23,7 @@ date = "2025"
 content = "Ranked 1st"
 
 [[items]]
-title = "Outstanding Communist Youth League Member"
-subtitle = "Tsinghua University"
+title = "Tsinghua University Outstanding Communist Youth League Member"
 date = "2025"
 
 [[items]]
