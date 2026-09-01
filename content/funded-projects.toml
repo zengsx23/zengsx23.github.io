@@ -3,6 +3,7 @@ title = "Projects"
 hoverable = true
 
 [[items]]
-title = "Project Funded by the Beijing Natural Science Foundation (Undergraduate “Qiyan” Program)"
+title = "Project Funded by the Beijing Natural Science Foundation"
+secondary_title = "Undergraduate “Qiyan” Program"
 subtitle = "A Multimodal Autonomous Modeling Agent for Engineering Structures Oriented to Mechanical Simulation"
 date = "2026–2027"

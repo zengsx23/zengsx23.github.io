@@ -56,7 +56,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                     Click to visit
                                 </span>
                             )}
-                            <div className="flex justify-between items-start mb-2">
+                            <div className={`flex justify-between items-start ${item.secondary_title ? "mb-1" : "mb-2"}`}>
                                 <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold leading-snug text-primary ${item.link ? "sm:pr-24" : ""}`}>
                                     {item.title}
                                 </h3>
@@ -66,6 +66,11 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                     </span>
                                 )}
                             </div>
+                            {item.secondary_title && (
+                                <p className="mb-2 text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                                    {item.secondary_title}
+                                </p>
+                            )}
                             {item.subtitle && (
                                 <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>{item.subtitle}</p>
                             )}
