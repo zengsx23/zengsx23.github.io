@@ -1,0 +1,33 @@
+type = "card"
+title = "Major Awards"
+
+[[items]]
+title = "Lu Qian Scholarship and Teaching Excellence Fund"
+subtitle = "Tsinghua University"
+date = "2026"
+
+[[items]]
+title = "Comprehensive Excellence Scholarship"
+subtitle = "Tsinghua University"
+date = "2025"
+
+[[items]]
+title = "National Scholarship for Undergraduate Students"
+subtitle = "Ministry of Education of China"
+date = "2025"
+content = "Ranked 1st"
+
+[[items]]
+title = "Outstanding Communist Youth League Member"
+subtitle = "Tsinghua University"
+date = "2025"
+
+[[items]]
+title = "Academic Excellence Scholarship"
+subtitle = "Tsinghua University"
+date = "2024"
+
+[[items]]
+title = "Athletic Excellence Scholarship"
+subtitle = "Tsinghua University"
+date = "2024"

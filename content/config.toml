@@ -44,6 +44,12 @@ target = "projects"
 href = "/projects"
 
 [[navigation]]
+title = "Major Awards"
+type = "page"
+target = "awards"
+href = "/awards"
+
+[[navigation]]
 title = "Education"
 type = "page"
 target = "education"
