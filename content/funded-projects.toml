@@ -1,0 +1,8 @@
+type = "card"
+title = "Projects"
+hoverable = true
+
+[[items]]
+title = "北京市自然科学基金资助项目（本科生“启研”计划）"
+subtitle = "A Multimodal Autonomous Modeling Agent for Engineering Structures Oriented to Mechanical Simulation"
+date = "2026–2027"

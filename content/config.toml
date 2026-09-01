@@ -50,6 +50,12 @@ target = "awards"
 href = "/awards"
 
 [[navigation]]
+title = "Projects"
+type = "page"
+target = "funded-projects"
+href = "/funded-projects"
+
+[[navigation]]
 title = "Education"
 type = "page"
 target = "education"
