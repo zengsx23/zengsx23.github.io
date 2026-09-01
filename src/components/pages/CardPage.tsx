@@ -61,7 +61,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                     {item.title}
                                 </h3>
                                 {item.date && (
-                                    <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                                    <span className="shrink-0 whitespace-nowrap text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
                                         {item.date}
                                     </span>
                                 )}
