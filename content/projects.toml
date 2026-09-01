@@ -1,5 +1,5 @@
 type = "card"
-title = "Projects"
+title = "Publications"
 
 [[items]]
 title = "PhysMind: From Video to Executable Worlds for Training-Free Physical Reasoning"
