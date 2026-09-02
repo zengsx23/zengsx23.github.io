@@ -8,30 +8,61 @@ import { getConfig } from '@/lib/config';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { SiteConfig } from '@/lib/config';
 
+const SITE_URL = 'https://zengsx23.github.io';
+
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
   const runtimeI18n = getRuntimeI18nConfig(config.i18n);
   const openGraphLocale = runtimeI18n.defaultLocale === 'zh' ? 'zh_CN' : 'en_US';
+  const displayName = config.author.name_zh
+    ? `${config.author.name} (${config.author.name_zh})`
+    : config.author.name;
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
-      default: config.site.title,
+      default: displayName,
       template: `%s | ${config.site.title}`,
     },
     description: config.site.description,
-    keywords: [config.author.name, 'PhD', 'Research', config.author.institution],
-    authors: [{ name: config.author.name }],
-    creator: config.author.name,
-    publisher: config.author.name,
+    keywords: [config.author.name, config.author.name_zh || '', 'Tsinghua University', 'PhD', 'Research'],
+    authors: [{ name: displayName, url: SITE_URL }],
+    creator: displayName,
+    publisher: displayName,
+    alternates: {
+      canonical: '/',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     icons: {
       icon: config.site.favicon,
     },
     openGraph: {
       type: 'website',
       locale: openGraphLocale,
-      title: config.site.title,
+      url: '/',
+      title: displayName,
       description: config.site.description,
-      siteName: `${config.author.name}'s Academic Website`,
+      siteName: `${displayName}'s Academic Website`,
+      images: [{
+        url: config.author.avatar,
+        alt: `${displayName} portrait`,
+      }],
+    },
+    twitter: {
+      card: 'summary',
+      title: displayName,
+      description: config.site.description,
+      images: [config.author.avatar],
     },
   };
 }
@@ -121,6 +152,24 @@ export default function RootLayout({
   const config = getConfig();
   const runtimeI18n = getRuntimeI18nConfig(config.i18n);
   const targetLocales = runtimeI18n.enabled ? runtimeI18n.locales : [runtimeI18n.defaultLocale];
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${SITE_URL}/#person`,
+    name: config.author.name,
+    alternateName: config.author.name_zh,
+    url: `${SITE_URL}/`,
+    image: new URL(config.author.avatar, SITE_URL).toString(),
+    email: config.social.email,
+    telephone: config.social.phone,
+    jobTitle: [config.author.title, config.author.degree].filter(Boolean).join(', '),
+    affiliation: {
+      '@type': 'CollegeOrUniversity',
+      name: config.author.institution,
+      url: 'https://www.tsinghua.edu.cn/en/',
+    },
+    sameAs: [config.social.github].filter(Boolean),
+  };
 
   const {
     navigationByLocale,
@@ -158,6 +207,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
         <ThemeProvider>
           <LocaleProvider config={runtimeI18n}>
             <Navigation
