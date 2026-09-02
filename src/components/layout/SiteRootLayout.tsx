@@ -18,7 +18,7 @@ export function buildLocalizedMetadata(locale: SiteLocale): Metadata {
   const displayName = isChinese
     ? config.author.name
     : `${config.author.name} (${config.author.name_zh})`;
-  const canonicalPath = isChinese ? '/' : '/en/';
+  const canonicalPath = isChinese ? '/zh/' : '/';
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -40,8 +40,8 @@ export function buildLocalizedMetadata(locale: SiteLocale): Metadata {
     alternates: {
       canonical: canonicalPath,
       languages: {
-        'zh-CN': '/',
-        'en-US': '/en/',
+        'zh-CN': '/zh/',
+        'en-US': '/',
         'x-default': '/',
       },
     },
@@ -98,7 +98,7 @@ export default function SiteRootLayout({
     fixedLocale: locale,
     persist: false,
   };
-  const canonicalPath = locale === 'zh' ? '/' : '/en/';
+  const canonicalPath = locale === 'zh' ? '/zh/' : '/';
   const personJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',

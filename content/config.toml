@@ -24,16 +24,16 @@ enable_one_page_mode = true
 
 [i18n]
 enabled = true
-locales = ["zh", "en"]
-default_locale = "zh"
+locales = ["en", "zh"]
+default_locale = "en"
 mode = "fixed"
-fixed_locale = "zh"
+fixed_locale = "en"
 persist = false
 switcher = true
 
 [i18n.labels]
-zh = "中文"
 en = "English"
+zh = "中文"
 
 [[navigation]]
 title = "About"

@@ -42,7 +42,7 @@ export default function Navigation({
   } | null>(null);
   const effectiveItems = items;
   const effectiveSiteTitle = siteTitle;
-  const localeRoot = locale === 'en' ? '/en/' : '/';
+  const localeRoot = locale === 'zh' ? '/zh/' : '/';
 
   useEffect(() => {
     const handleScroll = () => {
