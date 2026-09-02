@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { CardPageConfig } from '@/types/page';
+import { getMessages } from '@/lib/i18n/messages';
 
 const markdownComponents = {
     p: ({ children }: React.ComponentProps<'p'>) => <p className="mb-3 last:mb-0">{children}</p>,
@@ -29,7 +30,8 @@ const markdownComponents = {
     ),
 };
 
-export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
+export default function CardPage({ config, embedded = false, locale = 'en' }: { config: CardPageConfig; embedded?: boolean; locale?: string }) {
+    const messages = getMessages(locale);
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -53,7 +55,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         <>
                             {item.link && (
                                 <span className="absolute right-3 top-3 translate-y-1 rounded-full bg-primary px-2.5 py-1 text-[0.7rem] font-medium text-background opacity-0 shadow-sm transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                                    Click to visit
+                                    {messages.cards.clickToVisit}
                                 </span>
                             )}
                             <div className={`flex justify-between items-start ${item.secondary_title ? "mb-1" : "mb-2"}`}>
@@ -137,7 +139,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                 href={item.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={`Visit ${item.title}`}
+                                aria-label={`${messages.cards.clickToVisit}: ${item.title}`}
                                 className={`${cardClassName} cursor-pointer hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg focus-visible:-translate-y-0.5 focus-visible:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40`}
                             >
                                 {cardContent}

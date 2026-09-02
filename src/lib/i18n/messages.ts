@@ -14,7 +14,13 @@ export interface LocaleMessages {
     cycleTheme: string;
   };
   profile: {
+    github: string;
     email: string;
+    phone: string;
+    wechat: string;
+    copy: string;
+    copied: string;
+    linksLabel: string;
     location: string;
     workAddress: string;
     click: string;
@@ -25,6 +31,9 @@ export interface LocaleMessages {
     like: string;
     liked: string;
     thanks: string;
+  };
+  cards: {
+    clickToVisit: string;
   };
   home: {
     about: string;
@@ -64,7 +73,13 @@ const en: LocaleMessages = {
     cycleTheme: 'Click to cycle theme',
   },
   profile: {
+    github: 'GitHub',
     email: 'Email',
+    phone: 'Phone',
+    wechat: 'WeChat',
+    copy: 'Copy',
+    copied: 'Copied',
+    linksLabel: 'Profile links',
     location: 'Location',
     workAddress: 'Work Address',
     click: 'Click',
@@ -75,6 +90,9 @@ const en: LocaleMessages = {
     like: 'Like',
     liked: 'Liked',
     thanks: 'Thanks!',
+  },
+  cards: {
+    clickToVisit: 'Click to visit',
   },
   home: {
     about: 'About',
@@ -114,7 +132,13 @@ const zh: LocaleMessages = {
     cycleTheme: '点击切换主题',
   },
   profile: {
+    github: 'GitHub',
     email: '邮箱',
+    phone: '电话',
+    wechat: '微信',
+    copy: '复制',
+    copied: '已复制',
+    linksLabel: '联系方式',
     location: '地址',
     workAddress: '办公地址',
     click: '点击',
@@ -125,6 +149,9 @@ const zh: LocaleMessages = {
     like: '点赞',
     liked: '已点赞',
     thanks: '感谢支持！',
+  },
+  cards: {
+    clickToVisit: '点击访问',
   },
   home: {
     about: '关于我',

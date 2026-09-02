@@ -1,0 +1,12 @@
+type = "card"
+title = "论文"
+
+[[items]]
+title = "PhysMind: From Video to Executable Worlds for Training-Free Physical Reasoning"
+authors = ["Chen Yang*", "Shenxiang Zeng*", "Haoyang Zhao", "Zhouyuan Xu", "Youquan He", "Haoyu Li", "Mingyi Deng", "Jiansheng Fan", "Chen Wang†"]
+highlighted_author = "Shenxiang Zeng*"
+venue = "arXiv, 2026"
+author_note = "* 共同贡献 · † 通讯作者"
+content = "可靠的视频物理推理需要理解物体如何运动、交互并响应干预。现有视觉语言模型往往难以准确理解这些动态过程，也难以对未来及反事实结果进行可靠推理。我们提出 PhysMind：一个无需训练的智能体框架，为每段视频构建一个可复用且与问题无关的可执行世界。PhysMind 通过物体分割、网格重建和六自由度位姿跟踪恢复时间一致的动态场景，并在无需展开逐时间步模拟器的情况下，拟合解析的连续时间动力学及隐式物理参数。面对具体问题时，它会检查、延续或编辑该世界，并依据得到的轨迹与交互作答。与使用相同视觉语言模型的直接思维链推理相比，PhysMind 在 CLEVRER 和 Physion++ 上的准确率分别提升 38.23 和 8.08 个百分点；在反事实问题上，其表现超过评测中最强的视觉语言模型基线 GPT-5.5 达 19.25 个百分点。"
+tags = ["物理推理", "无需训练", "可执行世界"]
+link = "https://physmind.github.io/"

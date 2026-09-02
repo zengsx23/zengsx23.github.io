@@ -2,7 +2,7 @@
 title = "Shenxiang Zeng"
 description = "Personal website of Shenxiang Zeng (曾申翔), a senior undergraduate at Tsinghua University and a PhD student in the Class of 2027."
 favicon = "/favicon.png"
-last_updated = "August 30, 2026"
+last_updated = "September 2, 2026"
 
 [author]
 name = "Shenxiang Zeng"
@@ -23,13 +23,17 @@ enable_likes = false
 enable_one_page_mode = true
 
 [i18n]
-enabled = false
-locales = ["en"]
-default_locale = "en"
+enabled = true
+locales = ["zh", "en"]
+default_locale = "zh"
 mode = "fixed"
-fixed_locale = "en"
+fixed_locale = "zh"
 persist = false
-switcher = false
+switcher = true
+
+[i18n.labels]
+zh = "中文"
+en = "English"
 
 [[navigation]]
 title = "About"

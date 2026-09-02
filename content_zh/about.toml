@@ -1,0 +1,14 @@
+type = "about"
+title = "关于"
+
+[[sections]]
+id = "about"
+type = "markdown"
+source = "bio.md"
+title = "关于我"
+
+[[sections]]
+id = "news"
+type = "list"
+title = "动态"
+source = "news.toml"

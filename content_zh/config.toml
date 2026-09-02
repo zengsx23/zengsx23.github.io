@@ -1,0 +1,41 @@
+[site]
+title = "曾申翔"
+description = "曾申翔的个人学术主页。清华大学土木工程系本科四年级学生，2027级博士生。"
+last_updated = "2026年9月2日"
+
+[author]
+name = "曾申翔"
+name_zh = ""
+title = "本科四年级学生"
+degree = "2027级博士生"
+institution = "清华大学"
+
+[[navigation]]
+title = "关于"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "论文"
+type = "page"
+target = "projects"
+href = "/projects"
+
+[[navigation]]
+title = "主要荣誉"
+type = "page"
+target = "awards"
+href = "/awards"
+
+[[navigation]]
+title = "项目"
+type = "page"
+target = "funded-projects"
+href = "/funded-projects"
+
+[[navigation]]
+title = "教育经历"
+type = "page"
+target = "education"
+href = "/education"

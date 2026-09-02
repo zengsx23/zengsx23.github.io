@@ -1,9 +1,8 @@
-import HomePageClient, { type HomePageLocaleData } from '@/components/home/HomePageClient';
+import type { NewsItem } from '@/components/home/News';
+import type { HomePageLocaleData } from '@/components/home/HomePageClient';
 import { getConfig } from '@/lib/config';
 import { getMarkdownContent, getPageConfig, getTomlContent } from '@/lib/content';
-import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { BasePageConfig, CardPageConfig, TextPageConfig } from '@/types/page';
-import type { NewsItem } from '@/components/home/News';
 
 interface SectionConfig {
   id: string;
@@ -19,7 +18,7 @@ type PageData =
   | { type: 'text'; id: string; config: TextPageConfig; content: string }
   | { type: 'card'; id: string; config: CardPageConfig };
 
-function processSections(sections: SectionConfig[], locale?: string): SectionConfig[] {
+function processSections(sections: SectionConfig[], locale: string): SectionConfig[] {
   return sections.map((section) => {
     if (section.type === 'markdown') {
       return {
@@ -39,9 +38,8 @@ function processSections(sections: SectionConfig[], locale?: string): SectionCon
   });
 }
 
-function loadPageData(locale?: string): HomePageLocaleData {
+export function loadHomePageData(locale: string): HomePageLocaleData {
   const config = getConfig(locale);
-  const aboutConfig = getPageConfig<{ sections?: SectionConfig[] }>('about', locale);
   const pagesToShow: PageData[] = config.navigation
     .filter((item) => item.type === 'page')
     .map((item) => {
@@ -83,31 +81,10 @@ function loadPageData(locale?: string): HomePageLocaleData {
     })
     .filter((page): page is PageData => page !== null);
 
-  if (!config.features.enable_one_page_mode && aboutConfig) {
-    pagesToShow.splice(0, pagesToShow.length, {
-      type: 'about',
-      id: 'about',
-      sections: processSections(aboutConfig.sections || [], locale),
-    });
-  }
-
   return {
     author: config.author,
     social: config.social,
     features: config.features,
     pagesToShow,
   };
-}
-
-export default function Home() {
-  const config = getConfig();
-  const i18n = getRuntimeI18nConfig(config.i18n);
-  const targetLocales = i18n.enabled ? i18n.locales : [i18n.defaultLocale];
-  const dataByLocale: Record<string, HomePageLocaleData> = {};
-
-  for (const locale of targetLocales) {
-    dataByLocale[locale] = loadPageData(locale);
-  }
-
-  return <HomePageClient dataByLocale={dataByLocale} defaultLocale={i18n.defaultLocale} />;
 }

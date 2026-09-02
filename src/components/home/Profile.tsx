@@ -7,6 +7,7 @@ import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { Check, Copy, Github } from 'lucide-react';
 import type { ComponentType, SVGProps } from 'react';
 import type { SiteConfig } from '@/lib/config';
+import { getMessages } from '@/lib/i18n/messages';
 
 type ProfileLinkIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -31,33 +32,35 @@ function WechatIcon({ className }: SVGProps<SVGSVGElement>) {
 interface ProfileProps {
   author: SiteConfig['author'];
   social: SiteConfig['social'];
+  locale: string;
 }
 
-export default function Profile({ author, social }: ProfileProps) {
+export default function Profile({ author, social, locale }: ProfileProps) {
   const [copied, setCopied] = useState<string | null>(null);
+  const messages = getMessages(locale);
 
   const profileLinks: ProfileLink[] = [
     ...(social.github ? [{
-      name: 'GitHub',
+      name: messages.profile.github,
       value: social.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''),
       href: social.github,
       icon: Github,
       external: true,
     }] : []),
     ...(social.email ? [{
-      name: 'Email',
+      name: messages.profile.email,
       value: social.email,
       href: `mailto:${social.email}`,
       icon: EnvelopeIcon,
     }] : []),
     ...(social.phone ? [{
-      name: 'Phone',
+      name: messages.profile.phone,
       value: social.phone,
       href: `tel:${social.phone}`,
       icon: PhoneIcon,
     }] : []),
     ...(social.wechat ? [{
-      name: 'WeChat',
+      name: messages.profile.wechat,
       value: social.wechat,
       icon: WechatIcon,
       copiesOnClick: true,
@@ -80,7 +83,7 @@ export default function Profile({ author, social }: ProfileProps) {
       <div className="mb-8 h-64 w-64 overflow-hidden rounded-2xl shadow-sm ring-1 ring-neutral-200 dark:ring-neutral-800">
         <Image
           src={author.avatar}
-          alt={`Portrait of ${author.name}${author.name_zh ? ` (${author.name_zh})` : ''}`}
+          alt={locale === 'zh' ? `${author.name}头像` : `Portrait of ${author.name}${author.name_zh ? ` (${author.name_zh})` : ''}`}
           width={256}
           height={256}
           className="h-full w-full object-cover"
@@ -106,7 +109,7 @@ export default function Profile({ author, social }: ProfileProps) {
         </p>
       </div>
 
-      <div className="mt-7 flex justify-center gap-3" aria-label="Profile links">
+      <div className="mt-7 flex justify-center gap-3" aria-label={messages.profile.linksLabel}>
         {profileLinks.map((profileLink) => {
           const Icon = profileLink.icon;
           const isCopied = copied === profileLink.name;
@@ -118,7 +121,7 @@ export default function Profile({ author, social }: ProfileProps) {
                 <button
                   type="button"
                   onClick={() => copyValue(profileLink)}
-                  aria-label={`Copy ${profileLink.name}: ${profileLink.value}`}
+                  aria-label={`${messages.profile.copy} ${profileLink.name}: ${profileLink.value}`}
                   className={triggerClassName}
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
@@ -143,10 +146,10 @@ export default function Profile({ author, social }: ProfileProps) {
                     type="button"
                     onClick={() => copyValue(profileLink)}
                     className="pointer-events-auto inline-flex items-center gap-1 rounded bg-white/10 px-2 py-1 font-medium transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                    aria-label={`Copy ${profileLink.name}`}
+                    aria-label={`${messages.profile.copy} ${profileLink.name}`}
                   >
                     {isCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                    {isCopied ? 'Copied' : 'Copy'}
+                    {isCopied ? messages.profile.copied : messages.profile.copy}
                   </button>
                 </div>
                 <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-neutral-900" />
@@ -156,7 +159,7 @@ export default function Profile({ author, social }: ProfileProps) {
         })}
       </div>
       <span className="sr-only" aria-live="polite">
-        {copied ? `${copied} copied` : ''}
+        {copied ? `${copied} ${messages.profile.copied}` : ''}
       </span>
     </motion.div>
   );

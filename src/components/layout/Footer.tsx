@@ -1,21 +1,16 @@
 'use client';
 
-import { useLocaleStore } from '@/lib/stores/localeStore';
-import { useMessages } from '@/lib/i18n/useMessages';
+import { getMessages } from '@/lib/i18n/messages';
 
 interface FooterProps {
   lastUpdated?: string;
-  lastUpdatedByLocale?: Record<string, string | undefined>;
-  defaultLocale?: string;
+  locale: string;
 }
 
-export default function Footer({ lastUpdated, lastUpdatedByLocale, defaultLocale = 'en' }: FooterProps) {
-  const locale = useLocaleStore((state) => state.locale);
-  const messages = useMessages();
+export default function Footer({ lastUpdated, locale }: FooterProps) {
+  const messages = getMessages(locale);
 
   const resolvedLastUpdated =
-    lastUpdatedByLocale?.[locale] ||
-    (defaultLocale ? lastUpdatedByLocale?.[defaultLocale] : undefined) ||
     lastUpdated ||
     new Date().toLocaleDateString(locale || 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 

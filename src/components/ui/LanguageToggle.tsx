@@ -1,18 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { LanguageIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
-import { useLocaleStore } from '@/lib/stores/localeStore';
 import type { I18nRuntimeConfig } from '@/types/i18n';
 
 interface LanguageToggleProps {
   i18n: I18nRuntimeConfig;
+  currentLocale: string;
 }
 
-export default function LanguageToggle({ i18n }: LanguageToggleProps) {
-  const { locale, setLocale } = useLocaleStore();
+function localeHref(locale: string): string {
+  return locale === 'zh' ? '/' : `/${locale}/`;
+}
+
+export default function LanguageToggle({ i18n, currentLocale }: LanguageToggleProps) {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,8 +36,8 @@ export default function LanguageToggle({ i18n }: LanguageToggleProps) {
     );
   }
 
-  const currentLocale = i18n.locales.includes(locale) ? locale : i18n.defaultLocale;
-  const currentLabel = i18n.labels[currentLocale] || currentLocale;
+  const resolvedLocale = i18n.locales.includes(currentLocale) ? currentLocale : i18n.defaultLocale;
+  const currentLabel = i18n.labels[resolvedLocale] || resolvedLocale;
 
   return (
     <div className="relative">
@@ -70,24 +74,24 @@ export default function LanguageToggle({ i18n }: LanguageToggleProps) {
         >
           <div className="py-1">
             {i18n.locales.map((localeOption) => (
-              <button
+              <Link
                 key={localeOption}
-                onClick={() => {
-                  setLocale(localeOption);
-                  setIsOpen(false);
-                }}
+                href={localeHref(localeOption)}
+                hrefLang={localeOption === 'zh' ? 'zh-CN' : localeOption}
+                lang={localeOption === 'zh' ? 'zh-CN' : localeOption}
+                onClick={() => setIsOpen(false)}
                 className={cn(
                   'flex items-center justify-between w-full px-3 py-2 text-sm',
                   'hover:bg-neutral-50 dark:hover:bg-neutral-700',
                   'transition-colors duration-200',
-                  currentLocale === localeOption
+                  resolvedLocale === localeOption
                     ? 'text-accent bg-accent/10'
                     : 'text-neutral-700 dark:text-neutral-300'
                 )}
               >
                 <span>{i18n.labels[localeOption] || localeOption}</span>
                 <span className="text-xs opacity-70">{localeOption.toUpperCase()}</span>
-              </button>
+              </Link>
             ))}
           </div>
         </motion.div>

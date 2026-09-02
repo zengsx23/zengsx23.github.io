@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,8 +10,7 @@ import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import LanguageToggle from '@/components/ui/LanguageToggle';
 import type { SiteConfig } from '@/lib/config';
-import { useLocaleStore } from '@/lib/stores/localeStore';
-import { useMessages } from '@/lib/i18n/useMessages';
+import { getMessages } from '@/lib/i18n/messages';
 import type { I18nRuntimeConfig } from '@/types/i18n';
 
 interface NavigationProps {
@@ -19,8 +18,7 @@ interface NavigationProps {
   siteTitle: string;
   enableOnePageMode?: boolean;
   i18n: I18nRuntimeConfig;
-  itemsByLocale?: Record<string, SiteConfig['navigation']>;
-  siteTitleByLocale?: Record<string, string>;
+  locale: string;
 }
 
 export default function Navigation({
@@ -28,15 +26,13 @@ export default function Navigation({
   siteTitle,
   enableOnePageMode,
   i18n,
-  itemsByLocale,
-  siteTitleByLocale,
+  locale,
 }: NavigationProps) {
   const pathname = usePathname();
-  const locale = useLocaleStore((state) => state.locale);
   const [scrolled, setScrolled] = useState(false);
   const [activeHash, setActiveHash] = useState('');
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
-  const messages = useMessages();
+  const messages = getMessages(locale);
   const navContainerRef = useRef<HTMLDivElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{
     left: number;
@@ -44,15 +40,9 @@ export default function Navigation({
     top: number;
     height: number;
   } | null>(null);
-  const resolvedLocale = i18n.enabled ? locale : i18n.defaultLocale;
-
-  const effectiveItems = useMemo(() => {
-    return itemsByLocale?.[resolvedLocale] || itemsByLocale?.[i18n.defaultLocale] || items;
-  }, [i18n.defaultLocale, items, itemsByLocale, resolvedLocale]);
-
-  const effectiveSiteTitle = useMemo(() => {
-    return siteTitleByLocale?.[resolvedLocale] || siteTitleByLocale?.[i18n.defaultLocale] || siteTitle;
-  }, [i18n.defaultLocale, resolvedLocale, siteTitle, siteTitleByLocale]);
+  const effectiveItems = items;
+  const effectiveSiteTitle = siteTitle;
+  const localeRoot = locale === 'en' ? '/en/' : '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,7 +111,9 @@ export default function Navigation({
         : (pathname?.startsWith(item.href) ?? false));
 
   const getDesktopItemHref = (item: SiteConfig['navigation'][number]) =>
-    enableOnePageMode ? `/#${item.target}` : item.href;
+    enableOnePageMode
+      ? (item.target === 'about' ? localeRoot : `${localeRoot}#${item.target}`)
+      : item.href;
 
   const activeItem = effectiveItems.find((item) => isDesktopItemActive(item)) ?? null;
   const activeHref = activeItem ? getDesktopItemHref(activeItem) : null;
@@ -180,7 +172,7 @@ export default function Navigation({
                   className="flex-shrink-0"
                 >
                   <Link
-                    href="/"
+                    href={localeRoot}
                     className="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200"
                   >
                     {effectiveSiteTitle}
@@ -242,13 +234,13 @@ export default function Navigation({
                         );
                       })}
                     </div>
-                    <LanguageToggle i18n={i18n} />
+                    <LanguageToggle i18n={i18n} currentLocale={locale} />
                     <ThemeToggle />
                   </div>
                 </div>
 
                 <div className="lg:hidden flex items-center space-x-2">
-                  <LanguageToggle i18n={i18n} />
+                  <LanguageToggle i18n={i18n} currentLocale={locale} />
                   <ThemeToggle />
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
                     <span className="sr-only">{messages.navigation.openMainMenu}</span>
@@ -287,7 +279,7 @@ export default function Navigation({
                           : (pathname?.startsWith(item.href) ?? false));
 
                       const href = enableOnePageMode
-                        ? (item.href === '/' ? '/' : `/#${item.target}`)
+                        ? (item.target === 'about' ? localeRoot : `${localeRoot}#${item.target}`)
                         : item.href;
 
                       return (

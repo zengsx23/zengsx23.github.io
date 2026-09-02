@@ -1,0 +1,9 @@
+type = "card"
+title = "项目"
+hoverable = true
+
+[[items]]
+title = "北京市自然科学基金资助项目"
+secondary_title = "本科生“启研”计划"
+subtitle = "面向力学仿真的工程结构多模态自主建模智能体"
+date = "2026–2027"

@@ -1,0 +1,12 @@
+type = "card"
+title = "教育经历"
+
+[[items]]
+title = "清华大学"
+subtitle = "土木工程系工学学士在读"
+date = "至今"
+
+[[items]]
+title = "清华大学"
+subtitle = "2027级博士生"
+date = "2027年起"

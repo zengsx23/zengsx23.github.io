@@ -1,0 +1,39 @@
+type = "card"
+title = "主要荣誉"
+hoverable = true
+
+[[items]]
+title = "清华大学卢谦励学励教基金"
+subtitle = "清华大学"
+date = "2026"
+
+[[items]]
+title = "清华大学三好学生"
+subtitle = "清华大学"
+date = "2026"
+
+[[items]]
+title = "清华大学综合优秀奖学金"
+subtitle = "清华大学"
+date = "2025"
+
+[[items]]
+title = "本科生国家奖学金"
+subtitle = "教育部"
+date = "2025"
+content = "排名第一"
+
+[[items]]
+title = "清华大学优秀共青团员"
+subtitle = "清华大学"
+date = "2025"
+
+[[items]]
+title = "清华大学学业优秀奖学金"
+subtitle = "清华大学"
+date = "2024"
+
+[[items]]
+title = "清华大学体育优秀奖学金"
+subtitle = "清华大学"
+date = "2024"
