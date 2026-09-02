@@ -11,6 +11,52 @@ const SITE_URL = 'https://zengsx23.github.io';
 
 export type SiteLocale = 'zh' | 'en';
 
+export function getDeploymentVersion(): string {
+  return process.env.GITHUB_SHA?.slice(0, 12) || 'local';
+}
+
+export function buildChunkRecoveryScript(deploymentVersion: string): string {
+  return `
+    (function () {
+      var recoveryKey = 'homepage-chunk-recovery';
+      var recoveryMarker = location.pathname + ':${deploymentVersion}';
+
+      function recoverFromStaleAssets() {
+        try {
+          if (sessionStorage.getItem(recoveryKey) === recoveryMarker) return;
+          sessionStorage.setItem(recoveryKey, recoveryMarker);
+          var nextUrl = new URL(location.href);
+          nextUrl.searchParams.set('_refresh', '${deploymentVersion}-' + Date.now());
+          location.replace(nextUrl.toString());
+        } catch (error) {
+          location.reload();
+        }
+      }
+
+      window.addEventListener('error', function (event) {
+        var target = event.target;
+        if (target && target.tagName === 'SCRIPT' && target.src && target.src.indexOf('/_next/static/') !== -1) {
+          recoverFromStaleAssets();
+        }
+      }, true);
+
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event.reason;
+        var message = String(reason && (reason.message || reason.name) || reason || '');
+        if (/ChunkLoadError|Loading chunk|Failed to fetch dynamically imported module/i.test(message)) {
+          recoverFromStaleAssets();
+        }
+      });
+
+      window.addEventListener('load', function () {
+        window.setTimeout(function () {
+          try { sessionStorage.removeItem(recoveryKey); } catch (error) {}
+        }, 10000);
+      });
+    })();
+  `;
+}
+
 export function buildLocalizedMetadata(locale: SiteLocale): Metadata {
   const config = getConfig(locale);
   const isChinese = locale === 'zh';
@@ -84,9 +130,13 @@ export function buildLocalizedMetadata(locale: SiteLocale): Metadata {
 export default function SiteRootLayout({
   children,
   locale,
+  deploymentVersion,
+  recoveryScript,
 }: {
   children: ReactNode;
   locale: SiteLocale;
+  deploymentVersion: string;
+  recoveryScript: ReactNode;
 }) {
   const config = getConfig(locale);
   const englishConfig = getConfig('en');
@@ -121,6 +171,7 @@ export default function SiteRootLayout({
   return (
     <html lang={locale === 'zh' ? 'zh-CN' : 'en'} data-locale={locale} className="scroll-smooth" suppressHydrationWarning>
       <body className="font-sans antialiased">
+        {recoveryScript}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -155,6 +206,7 @@ export default function SiteRootLayout({
               enableOnePageMode={config.features.enable_one_page_mode}
               i18n={routeI18n}
               locale={locale}
+              deploymentVersion={deploymentVersion}
             />
             <main className="min-h-screen pt-16 lg:pt-20">
               {children}

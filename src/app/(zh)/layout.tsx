@@ -1,9 +1,30 @@
 import type { ReactNode } from 'react';
-import SiteRootLayout, { buildLocalizedMetadata } from '@/components/layout/SiteRootLayout';
+import Script from 'next/script';
+import SiteRootLayout, {
+  buildChunkRecoveryScript,
+  buildLocalizedMetadata,
+  getDeploymentVersion,
+} from '@/components/layout/SiteRootLayout';
 import '../globals.css';
 
 export const metadata = buildLocalizedMetadata('zh');
 
 export default function ChineseRootLayout({ children }: { children: ReactNode }) {
-  return <SiteRootLayout locale="zh">{children}</SiteRootLayout>;
+  const deploymentVersion = getDeploymentVersion();
+
+  return (
+    <SiteRootLayout
+      locale="zh"
+      deploymentVersion={deploymentVersion}
+      recoveryScript={(
+        <Script
+          id="chunk-load-recovery"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: buildChunkRecoveryScript(deploymentVersion) }}
+        />
+      )}
+    >
+      {children}
+    </SiteRootLayout>
+  );
 }

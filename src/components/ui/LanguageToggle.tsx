@@ -1,108 +1,50 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { LanguageIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { LanguageIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import type { I18nRuntimeConfig } from '@/types/i18n';
 
 interface LanguageToggleProps {
   i18n: I18nRuntimeConfig;
   currentLocale: string;
+  deploymentVersion: string;
 }
 
 function localeHref(locale: string): string {
   return locale === 'en' ? '/' : `/${locale}/`;
 }
 
-export default function LanguageToggle({ i18n, currentLocale }: LanguageToggleProps) {
-  const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+export default function LanguageToggle({ i18n, currentLocale, deploymentVersion }: LanguageToggleProps) {
   if (!i18n.enabled || !i18n.switcher || i18n.locales.length <= 1) {
     return null;
   }
 
-  if (!mounted) {
-    return (
-      <div className="flex items-center justify-center w-14 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800">
-        <div className="w-6 h-4 rounded bg-neutral-300 animate-pulse" />
-      </div>
-    );
+  const resolvedLocale = i18n.locales.includes(currentLocale) ? currentLocale : i18n.defaultLocale;
+  const targetLocale = i18n.locales.find((locale) => locale !== resolvedLocale);
+
+  if (!targetLocale) {
+    return null;
   }
 
-  const resolvedLocale = i18n.locales.includes(currentLocale) ? currentLocale : i18n.defaultLocale;
-  const currentLabel = i18n.labels[resolvedLocale] || resolvedLocale;
+  const targetLabel = i18n.labels[targetLocale] || targetLocale;
+  const targetHref = `${localeHref(targetLocale)}?v=${encodeURIComponent(deploymentVersion)}`;
+  const accessibleLabel = resolvedLocale === 'zh' ? `切换至${targetLabel}` : `Switch to ${targetLabel}`;
 
   return (
-    <div className="relative">
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        type="button"
-        onMouseDown={(e) => e.preventDefault()}
-        onClick={() => setIsOpen(!isOpen)}
-        className={cn(
-          'flex items-center justify-center gap-1 px-2 h-10 rounded-lg',
-          'border border-neutral-200 bg-background hover:bg-neutral-50',
-          'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
-          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
-          'text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white'
-        )}
-        title={currentLabel}
-      >
-        <LanguageIcon className="h-4 w-4" />
-        <span className="text-xs font-medium">{currentLabel}</span>
-        <ChevronDownIcon className="h-3.5 w-3.5" />
-      </motion.button>
-
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: -10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -10 }}
-          className={cn(
-            'absolute right-0 mt-2 w-36 rounded-lg shadow-lg border',
-            'bg-background border-neutral-200 dark:border-[rgba(148,163,184,0.24)]',
-            'dark:bg-neutral-800 z-50'
-          )}
-        >
-          <div className="py-1">
-            {i18n.locales.map((localeOption) => (
-              <Link
-                key={localeOption}
-                href={localeHref(localeOption)}
-                hrefLang={localeOption === 'zh' ? 'zh-CN' : localeOption}
-                lang={localeOption === 'zh' ? 'zh-CN' : localeOption}
-                onClick={() => setIsOpen(false)}
-                className={cn(
-                  'flex items-center justify-between w-full px-3 py-2 text-sm',
-                  'hover:bg-neutral-50 dark:hover:bg-neutral-700',
-                  'transition-colors duration-200',
-                  resolvedLocale === localeOption
-                    ? 'text-accent bg-accent/10'
-                    : 'text-neutral-700 dark:text-neutral-300'
-                )}
-              >
-                <span>{i18n.labels[localeOption] || localeOption}</span>
-                <span className="text-xs opacity-70">{localeOption.toUpperCase()}</span>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
+    <a
+      href={targetHref}
+      hrefLang={targetLocale === 'zh' ? 'zh-CN' : targetLocale}
+      lang={targetLocale === 'zh' ? 'zh-CN' : targetLocale}
+      aria-label={accessibleLabel}
+      title={accessibleLabel}
+      className={cn(
+        'flex h-10 items-center justify-center gap-1.5 rounded-lg px-3',
+        'border border-neutral-200 bg-background hover:bg-neutral-50',
+        'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
+        'transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
+        'text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white'
       )}
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-    </div>
+    >
+      <LanguageIcon className="h-4 w-4" aria-hidden="true" />
+      <span className="text-xs font-medium">{targetLabel}</span>
+    </a>
   );
 }
