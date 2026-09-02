@@ -13,7 +13,7 @@ interface LanguageToggleProps {
 }
 
 function localeHref(locale: string): string {
-  return locale === 'zh' ? '/' : `/${locale}/`;
+  return locale === 'en' ? '/' : `/${locale}/`;
 }
 
 export default function LanguageToggle({ i18n, currentLocale }: LanguageToggleProps) {
