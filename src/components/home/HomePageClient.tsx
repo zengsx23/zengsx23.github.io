@@ -41,7 +41,7 @@ export default function HomePageClient({ data, locale }: HomePageClientProps) {
           <Profile author={data.author} social={data.social} locale={locale} />
         </aside>
 
-        <div className="space-y-14 lg:col-span-2">
+        <div className="space-y-14 pb-20 sm:pb-28 lg:col-span-2 lg:pb-36">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-28 space-y-8">
               {page.type === 'about' && page.sections.map((section) => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type MouseEvent } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -117,6 +117,28 @@ export default function Navigation({
       ? (item.target === 'about' ? localeRoot : `${localeRoot}#${item.target}`)
       : item.href;
 
+  const handleSectionNavigation = useCallback((
+    event: MouseEvent<HTMLElement>,
+    item: SiteConfig['navigation'][number],
+  ) => {
+    if (!enableOnePageMode) return;
+
+    const target = document.getElementById(item.target);
+    if (!target) return;
+
+    event.preventDefault();
+
+    const hash = item.target === 'about' ? '' : `#${item.target}`;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    setActiveHash(hash);
+    window.history.pushState(null, '', `${localeRoot}${hash}`);
+    target.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  }, [enableOnePageMode, localeRoot]);
+
   const activeItem = effectiveItems.find((item) => isDesktopItemActive(item)) ?? null;
   const activeHref = activeItem ? getDesktopItemHref(activeItem) : null;
   const indicatorHref = hoveredHref ?? activeHref;
@@ -220,7 +242,7 @@ export default function Navigation({
                             href={href}
                             data-nav-href={href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
+                            onClick={(event) => handleSectionNavigation(event, item)}
                             onMouseEnter={() => setHoveredHref(href)}
                             className={cn(
                               'relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
@@ -275,7 +297,7 @@ export default function Navigation({
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {effectiveItems.map((item, index) => {
                       const isActive = enableOnePageMode
-                        ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
+                        ? (item.target === 'about' ? !activeHash : activeHash === `#${item.target}`)
                         : (item.href === '/'
                           ? pathname === '/'
                           : (pathname?.startsWith(item.href) ?? false));
@@ -295,7 +317,7 @@ export default function Navigation({
                             as={Link}
                             href={href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
+                            onClick={(event) => handleSectionNavigation(event, item)}
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
