@@ -2,6 +2,16 @@ type = "card"
 title = "论文"
 
 [[items]]
+title = "Asking the World: Generalist Physical Reasoning through Agentic World Modeling and Probing"
+authors = ["Shenxiang Zeng*", "Chen Yang*", "Peiyao Chen", "Guohui Zhang", "Jiansheng Fan†", "Chen Wang†"]
+highlighted_author = "Shenxiang Zeng*"
+venue = "arXiv, 2026"
+author_note = "* 共同贡献 · † 通讯作者"
+content = "视频物理推理需要推断直接观测之外的隐式物理属性与动态规律。我们提出 Asking the World（ATW）：一个通用智能体，通过世界建模与世界探查两个自适应阶段，构建并探索与任务相关的可执行世界。世界建模从视频中校准世界，世界探查则通过查询、模拟与干预获取与问题相关的证据；ATW 根据场景与问题自主决定如何建模和探查。我们开发了 PolyWorld Engine：一个基于 Warp 的轻量、高度可编程的多物理模拟器，支持刚体、软体、布料、绳索、流体及其耦合交互，并通过基于交叉熵方法（CEM）的系统辨识恢复与任务相关的动态规律。以 Gemini-3-Flash 为基础视觉语言模型，ATW 在 CLEVRER、ContPhy 和三个真实场景上的准确率分别达到 80.82%、70.56% 和 71.67%，分别超过 GPT-5.5 达 13.58、3.53 和 28.33 个百分点。"
+tags = ["物理推理", "智能体世界建模", "多物理模拟"]
+link = "https://asking-the-world.github.io/"
+
+[[items]]
 title = "PhysMind: From Video to Executable Worlds for Training-Free Physical Reasoning"
 authors = ["Chen Yang*", "Shenxiang Zeng*", "Haoyang Zhao", "Zhouyuan Xu", "Youquan He", "Haoyu Li", "Mingyi Deng", "Jiansheng Fan", "Chen Wang†"]
 highlighted_author = "Shenxiang Zeng*"

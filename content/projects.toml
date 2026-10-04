@@ -2,6 +2,16 @@ type = "card"
 title = "Publications"
 
 [[items]]
+title = "Asking the World: Generalist Physical Reasoning through Agentic World Modeling and Probing"
+authors = ["Shenxiang Zeng*", "Chen Yang*", "Peiyao Chen", "Guohui Zhang", "Jiansheng Fan†", "Chen Wang†"]
+highlighted_author = "Shenxiang Zeng*"
+venue = "arXiv, 2026"
+author_note = "* Equal contribution · † Corresponding authors"
+content = "Physical reasoning from video requires inferring latent physical properties and dynamics beyond direct observation. We introduce Asking the World (ATW), a generalist agent that constructs and interrogates task-relevant executable worlds through two adaptive stages: World Modeling calibrates a world from video, while World Probing queries, simulates, and intervenes on it to obtain question-relevant evidence. ATW determines how to model and probe according to the scene and question. We develop PolyWorld Engine, a lightweight and highly programmable Warp-based multiphysics simulator supporting rigid bodies, soft bodies, cloth, ropes, fluids, and their coupled interactions. CEM-based system identification recovers task-relevant dynamics. Using Gemini-3-Flash as its base VLM, ATW achieves 80.82% accuracy on CLEVRER, 70.56% on ContPhy, and 71.67% across three real-world scenarios, exceeding GPT-5.5 by 13.58, 3.53, and 28.33 percentage points, respectively."
+tags = ["Physical reasoning", "Agentic world modeling", "Multiphysics simulation"]
+link = "https://asking-the-world.github.io/"
+
+[[items]]
 title = "PhysMind: From Video to Executable Worlds for Training-Free Physical Reasoning"
 authors = ["Chen Yang*", "Shenxiang Zeng*", "Haoyang Zhao", "Zhouyuan Xu", "Youquan He", "Haoyu Li", "Mingyi Deng", "Jiansheng Fan", "Chen Wang†"]
 highlighted_author = "Shenxiang Zeng*"
