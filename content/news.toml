@@ -1,3 +1,7 @@
 [[news]]
+date = "2026-10"
+content = "We released Asking the World (ATW), a generalist agent for physical reasoning through agentic world modeling and probing."
+
+[[news]]
 date = "2026-08"
 content = "We released PhysMind, with the paper, code, and project website now publicly available."

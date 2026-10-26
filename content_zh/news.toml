@@ -1,3 +1,7 @@
 [[news]]
+date = "2026-10"
+content = "我们发布了 Asking the World（ATW），一个通过自主世界建模与探查实现物理推理的通用智能体。"
+
+[[news]]
 date = "2026-08"
 content = "我们发布了 PhysMind，论文、代码及项目网站现已公开。"

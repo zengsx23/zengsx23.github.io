@@ -59,7 +59,7 @@ export default function CardPage({ config, embedded = false, locale = 'en' }: { 
                                 </span>
                             )}
                             <div className={`flex justify-between items-start ${item.secondary_title ? "mb-1" : "mb-2"}`}>
-                                <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold leading-snug text-primary ${item.link ? "sm:pr-24" : ""}`}>
+                                <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold leading-snug text-primary`}>
                                     {item.title}
                                 </h3>
                                 {item.date && (

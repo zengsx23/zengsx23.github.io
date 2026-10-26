@@ -3,7 +3,6 @@
 ## Communication
 
 - Start every reply with `Zengshenxiang`.
-- Explain the proposed approach and receive approval before writing code.
 - Ask a clarifying question when a request is ambiguous.
 - Do not add backward-compatibility or compatibility-layer code unless requested.
 
