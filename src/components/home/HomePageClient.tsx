@@ -35,13 +35,13 @@ interface HomePageClientProps {
 
 export default function HomePageClient({ data, locale }: HomePageClientProps) {
   return (
-    <div className="mx-auto min-h-screen max-w-7xl bg-background px-5 py-12 sm:px-8 lg:px-8 lg:py-14">
-      <div className="grid grid-cols-1 gap-14 lg:grid-cols-3 lg:gap-12">
-        <aside className="lg:col-span-1">
+    <div className="mx-auto min-h-screen max-w-[1440px] bg-background px-5 py-12 sm:px-8 lg:px-8 lg:py-14">
+      <div className="grid grid-cols-1 gap-14 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12">
+        <aside>
           <Profile author={data.author} social={data.social} locale={locale} />
         </aside>
 
-        <div className="space-y-14 pb-20 sm:pb-28 lg:col-span-2 lg:pb-36">
+        <div className="min-w-0 space-y-14 pb-20 sm:pb-28 lg:pb-36">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-28 space-y-8">
               {page.type === 'about' && page.sections.map((section) => {
